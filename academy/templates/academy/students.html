@@ -14,5 +14,12 @@
             <h3>{{ student.first_name }} {{ student.last_name }}</h3>
         {% endfor %}
     </p>
+    <form method="post">
+        {% csrf_token %}
+        Имя:{{ form.first_name }}<br>
+        Фамилия:{{ form.last_name }}<br>
+        Email:{{ form.email }}<br>
+        <button calss="btn btn-success" type="submit">Добавить студента</button>
+    </form>
 </body>
 </html>
