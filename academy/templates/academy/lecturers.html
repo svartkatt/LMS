@@ -12,5 +12,12 @@
         {% for lecturer in lecturers %}
             <h3>{{ lecturer.last_name }}</h3>
         {% endfor %}
+<form method="post">
+        {% csrf_token %}
+        Имя:{{ form.first_name }}<br>
+        Фамилия:{{ form.last_name }}<br>
+        Email:{{ form.email }}<br>
+        <button calss="btn btn-success" type="submit">Добавить лектора</button>
+    </form>
 </body>
 </html>
