@@ -37,10 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'academy',
+    'academy.apps.AcademyConfig',
     'silk',
     'logger'
-  #  'academy.apps.AcademyConfig',
 ]
 
 MIDDLEWARE = [
