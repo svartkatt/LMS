@@ -87,21 +87,6 @@ def delete_lecturer(request, id):
         return HttpResponseNotFound("<h2>Person not found</h2>")
 
 
-# def groups(request):
-#     groups = Group.objects.all()
-#     if request.method == 'POST':
-#         form = GroupForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect('/groups')
-#     form = GroupForm()
-#
-#     data = {
-#         'groups': groups,
-#         'form': form
-#     }
-#     return render(request, 'academy/groups.html', data)
-
 def groups(request):
     groups = Group.objects.all()
     return render(request, 'academy/groups.html', {'groups': groups})
