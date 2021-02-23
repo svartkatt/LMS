@@ -6,11 +6,11 @@ from academy.models import Student, Lecturer, Group
 
 @receiver(pre_save, sender=Student)
 @receiver(pre_save, sender=Lecturer)
-def capitalize_names(instance, **kwargs):
+def capitalize_names(sender, instance, **kwargs):
     instance.first_name = instance.first_name.capitalize()
     instance.last_name = instance.last_name.capitalize()
 
 
 @receiver(pre_save, sender=Group)
-def capitalize_names(instance, **kwargs):
+def capitalize_name(sender, instance, **kwargs):
     instance.course = instance.course.capitalize()
