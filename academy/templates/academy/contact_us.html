@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Contact us</title>
+</head>
+<body>
+    <h1>Напишите нам:</h1>
+    <a href="{% url 'contact_us' %}"></a>
+    <form method="post">
+        {% csrf_token %}
+        Имя:{{ form.name }}<br>
+        Email:{{ form.email }}<br>
+        Ваше сообщение:{{ form.text }}<br>
+        <button class="btn btn-success" type="submit">Отправить</button>
+    </form>
+    <h1>Отправленные отзывы:</h1>
+</body>
+</html>
