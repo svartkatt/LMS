@@ -1,8 +1,8 @@
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .models import Student, Lecturer, Group
-from .forms import StudentForm, LecturerForm, GroupForm
+from .models import Student, Lecturer, Group, Contact
+from .forms import StudentForm, LecturerForm, GroupForm, ContactForm
 
 
 def students(request):
@@ -126,3 +126,17 @@ def delete_groups(request, id):
         return HttpResponseRedirect("/groups")
     except Student.DoesNotExist:
         return HttpResponseNotFound("<h2>Person not found</h2>")
+
+
+def contact_us(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+    form = ContactForm()
+
+    data = {
+        'contact_us': contact_us,
+        'form': form
+    }
+    return render(request, 'academy/contact_us.html', data)
