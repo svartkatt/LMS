@@ -23,3 +23,10 @@ class Contact(models.Model):
     name = models.CharField(max_length=30)
     email = models.EmailField()
     text = models.TextField()
+
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'email': self.email,
+            'text': self.text,
+        }
