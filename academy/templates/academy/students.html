@@ -18,4 +18,8 @@
     </p>
     <a href="{% url 'create_students' %}"><button class="btn btn-success" type="submit">Добавить студента</button></a>
 </body>
+{% block content %}
+    {% include 'academy/get_exchange_rates.html' %}
+{% endblock %}
+
 </html>
