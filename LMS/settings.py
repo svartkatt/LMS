@@ -22,6 +22,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'op!(!7@nc-mzz2%k-yi4vs)=(+_!k6^=4wh2uj!cy5)l5@1%da'
 
+SENDGRID_KEY = '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'
+EMAIL_SENDER = 'kagalanton@protonmail.com'
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+#EXCHANGE_RATES_SOURCE = 'https://api.privatbank.ua/p24api/exchange_rates?json&date=01.12.2014'
+EXCHANGE_RATES_SOURCE = 'https://api.monobank.ua/bank/currency'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -37,6 +45,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'academy.apps.AcademyConfig',
+    'silk',
+    'logger',
+    'exchanger',
+    'bulk_update_or_create'
 ]
 
 MIDDLEWARE = [
@@ -47,6 +60,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'silk.middleware.SilkyMiddleware',
+    'logger.middleware.LoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'LMS.urls'
@@ -54,8 +69,7 @@ ROOT_URLCONF = 'LMS.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,3 +133,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
