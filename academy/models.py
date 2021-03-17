@@ -5,12 +5,14 @@ class Student(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
+    cover = models.ImageField(upload_to='covers/', default='covers/default.png')
 
 
 class Lecturer(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     email = models.EmailField()
+    covers = models.ImageField(upload_to='covers/', default='covers/default.png')
 
 
 class Group(models.Model):

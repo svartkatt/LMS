@@ -1,21 +1,31 @@
 <!doctype html>
 <html lang="ru">
+{% load static %}
 <head>
     <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'academy/styles.css' %}">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Список лекторов</title>
 </head>
 <body>
-    <h1>Lecturers:</h1>
+    <div class="navbar navbar-dark header-blue shadow-lg mb-1">
+        <div class="container">
+            <svg _ngcontent-wfc-c59="" width="127" height="33" fill="none" xmlns="http://www.w3.org/2000/svg" class="header__logo-image" viewBox="0 0 127 33"><path _ngcontent-wfc-c59="" d="M92 25H89V10.8376L89.1139 10.8965C89.3495 11.0207 90.1517 11.029 90.8299 11.4025C91.9191 12.017 92.1868 12.4329 92.1868 12.4329L92.3648 12.327C92.6271 12.1681 92.9234 12.0361 93.245 11.9356C94.162 11.6455 95.0353 11.56 96.0784 11.6544C97.4653 11.7904 98.5987 12.304 99.4234 13.1305C99.6669 12.938 100.019 12.6841 100.373 12.5121C100.717 12.345 101.462 12.0361 101.783 11.9356C102.701 11.6455 103.574 11.56 104.617 11.6544C107.675 11.9544 110 14.0908 110 17.3674V25H107V18.0121C107 15.9896 106.508 15.356 105.539 14.8349C104.334 14.1886 102.083 14.5906 100.719 15.4317C100.879 16.0205 100.963 16.6681 100.963 17.3674V25H98V18.0121C98 15.9896 97.7054 15.356 96.7365 14.8349C95.4952 14.1693 93.4182 14.3338 92.0528 15.2266L92 15.261V25Z" fill="#ffffff"></path><path _ngcontent-wfc-c59="" d="M86 25V8.18882C86 6.61054 85.5521 5.87009 84.4603 5.25387C83.7842 4.88137 83.3504 4.65198 83.1147 4.52849L83 4.46863V25L86 25Z" fill="#ffffff"></path><path _ngcontent-wfc-c59="" fill-rule="evenodd" clip-rule="evenodd" d="M116.78 11.4289C118.475 11.4364 120.195 11.8876 121.511 12.9358L121.661 13.0623L119.463 14.5113C119.463 14.5113 119.455 14.5045 119.294 14.4132C118.283 13.8546 117.094 13.6178 115.963 13.9396C115.157 14.1689 114.365 15.0371 114.752 15.7662C114.986 16.2094 115.5 16.4329 116.013 16.6446C117.513 17.264 119.21 17.4755 120.554 18.3981C121.515 19.057 122.106 20.2117 121.984 21.4148C121.845 22.7737 120.891 23.9411 119.613 24.5563C117.648 25.502 115.268 25.3264 113.297 24.4713C112.681 24.2039 112.096 23.8612 111.572 23.4398L111.405 23.3097L113.797 21.7273C113.797 21.7273 113.921 21.7868 114.003 21.8394C115.311 22.6692 116.948 23.043 118.385 22.3616C118.944 22.0964 119.421 21.4954 119.18 20.8698C118.891 20.1179 117.914 19.8822 117.018 19.5892C115.116 18.9733 112.916 18.4991 112.123 16.7196C111.726 15.8274 111.768 14.7553 112.19 13.8735C112.953 12.2811 114.947 11.4287 116.78 11.4289Z" fill="#ffffff"></path></svg>
+        </div>
+    </div>
+    <div class="container-fluid">
+    <h1>Лекторы:</h1>
     <p>
         {% for lecturer in lecturers %}
             <h3>{{ lecturer.first_name }} {{ lecturer.last_name }}
-            <td><a href="lecturers/edit/{{lecturer.id}}">Изменить</a> | <a href="lecturers/delete/{{lecturer.id}}">Удалить</a></td>
+            <td><img class="cover" src="{{ academy.cover.url }}"><a href="lecturers/edit/{{lecturer.id}}">Изменить</a> | <a href="lecturers/delete/{{lecturer.id}}">Удалить</a></td>
             </h3>
         {% endfor %}
     </p>
     <a href="{% url 'create_lecturers' %}"><button class="btn btn-success" type="submit">Добавить лектора</button></a>
+</div>
 </body>
 </html>

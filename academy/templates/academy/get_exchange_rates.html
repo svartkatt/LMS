@@ -1,30 +1,30 @@
-<table>
+<table class="table table-hover">
     <thread>
         <tr>
-            <th></th>
-            <th>USD</th>
-            <th>EUR</th>
-            <th>RUB</th>
+            <th scope="col"></th>
+            <th scope="col">USD</th>
+            <th scope="col">EUR</th>
+            <th scope="col">RUB</th>
         </tr>
     </thread>
     <tbody>
         <tr>
-            <th>Buy</th>
+            <th scope="row">Buy</th>
             <th>{{ usd_buy }}</th>
             <th>{{ eur_buy }}</th>
             <th>{{ rub_buy }}</th>
         </tr>
         <tr>
-            <th>Sell</th>
+            <th scope="row">Sell</th>
             <th>{{ usd_sell }}</th>
             <th>{{ eur_sell }}</th>
             <th>{{ rub_sell }}</th>
         </tr>
         <tr>
-            <th>Tendency</th>
+            <th scope="row">Tendency</th>
             <th>&#8593</th>
-            <th>{{ eur_sell }}</th>
-            <th>{{ rub_sell }}</th>
+            <th>&#8593</th>
+            <th>&#8593</th>
         </tr>
     </tbody>
 </table>
