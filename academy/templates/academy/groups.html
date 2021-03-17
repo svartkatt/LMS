@@ -1,3 +1,4 @@
+{% load academy_extras %}
 <!doctype html>
 <html lang="ru">
 {% load static %}
@@ -24,6 +25,7 @@
             <td><a href="groups/edit/{{group.id}}">Изменить</a> | <a href="groups/delete/{{group.id}}">Удалить</a></td>
             </h3>
         {% endfor %}
+            Количество групп: {{ groups|get_count}}
     </p>
     <a href="{% url 'create_groups' %}"><button class="btn btn-success" type="submit">Добавить группу</button></a>
 </div>

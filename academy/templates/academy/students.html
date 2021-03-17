@@ -1,3 +1,4 @@
+{% load academy_extras %}
 <!doctype html>
 <html lang="ru">
 {% load static %}
@@ -26,6 +27,7 @@
                 <td><img class="cover" src="{{ academy.cover.url }}"><a href="students/edit/{{student.id}}">Изменить</a> | <a href="students/delete/{{student.id}}">Удалить</a></td>
                 </h3>
             {% endfor %}
+            Количество студентов: {{ students|get_count}}
         </p>
     <a href="{% url 'create_students' %}"><button class="btn btn-success" type="submit">Добавить студента</button></a>
             </div>
