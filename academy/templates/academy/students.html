@@ -24,7 +24,7 @@
         <p>
             {% for student in students %}
                 <h3>{{ student.first_name }} {{ student.last_name }}
-                <td><img class="cover" src="{{ academy.cover.url }}"><a href="students/edit/{{student.id}}">Изменить</a> | <a href="students/delete/{{student.id}}">Удалить</a></td>
+                <td><img class="avatar" src="{{ student.avatar.url }}"><a href="students/edit/{{student.id}}">Изменить</a> | <a href="students/delete/{{student.id}}">Удалить</a></td>
                 </h3>
             {% endfor %}
             Количество студентов: {{ students|get_count}}

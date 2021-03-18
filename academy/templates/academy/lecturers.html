@@ -22,7 +22,7 @@
     <p>
         {% for lecturer in lecturers %}
             <h3>{{ lecturer.first_name }} {{ lecturer.last_name }}
-            <td><img class="cover" src="{{ academy.cover.url }}"><a href="lecturers/edit/{{lecturer.id}}">Изменить</a> | <a href="lecturers/delete/{{lecturer.id}}">Удалить</a></td>
+            <td><img class="avatar" src="{{ lecturer.avatar.url }}"><a href="lecturers/edit/{{lecturer.id}}">Изменить</a> | <a href="lecturers/delete/{{lecturer.id}}">Удалить</a></td>
             </h3>
         {% endfor %}
             Количество лекторов: {{ lecturers|get_count}}
