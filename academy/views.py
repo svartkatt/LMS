@@ -2,9 +2,10 @@ from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 
 from exchanger.models import ExchangeRate
-from exchanger.tasks import get_exchange_rates
-from .models import Student, Lecturer, Group, Contact
+from .models import Student, Lecturer, Group
 from .forms import StudentForm, LecturerForm, GroupForm, ContactForm
+
+from django.views.decorators.cache import cache_page
 
 
 def students(request):
@@ -32,6 +33,7 @@ def create_students(request):
     return render(request, 'academy/create_students.html', data)
 
 
+@cache_page(60 * 10)
 def edit_students(request, id):
     student = get_object_or_404(Student, id=id)
     if request.method == 'POST':
@@ -73,6 +75,7 @@ def create_lecturers(request):
     return render(request, 'academy/create_lecturers.html', data)
 
 
+@cache_page(60 * 10)
 def edit_lecturers(request, id):
     lecturer = get_object_or_404(Lecturer, id=id)
     if request.method == 'POST':
@@ -114,6 +117,7 @@ def create_groups(request):
     return render(request, 'academy/create_groups.html', data)
 
 
+@cache_page(60 * 10)
 def edit_groups(request, id):
     group = get_object_or_404(Group, id=id)
     if request.method == 'POST':
