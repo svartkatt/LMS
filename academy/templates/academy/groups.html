@@ -25,12 +25,16 @@
     <p>
         {% for group in groups %}
             <h3>{{ group.course }}
+                {% if request.user.is_authenticated and request.user.is_staff %}
             <td><a href="groups/edit/{{group.id}}">Изменить</a> | <a href="groups/delete/{{group.id}}">Удалить</a></td>
+                {% endif %}
             </h3>
         {% endfor %}
             Количество групп: {{ groups|get_count}}
     </p>
+    {% if request.user.is_authenticated and request.user.is_staff %}
     <a href="{% url 'create_groups' %}"><button class="btn btn-success" type="submit">Добавить группу</button></a>
-</div>
+        {% endif %}
+    </div>
 </body>
 </html>

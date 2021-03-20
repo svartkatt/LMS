@@ -22,12 +22,17 @@
     <p>
         {% for lecturer in lecturers %}
             <h3>{{ lecturer.first_name }} {{ lecturer.last_name }}
-            <td><img class="avatar" src="{{ lecturer.avatar.url }}"><a href="lecturers/edit/{{lecturer.id}}">Изменить</a> | <a href="lecturers/delete/{{lecturer.id}}">Удалить</a></td>
+            <td><img class="avatar" src="{{ lecturer.avatar.url }}">
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                <a href="lecturers/edit/{{lecturer.id}}">Изменить</a> | <a href="lecturers/delete/{{lecturer.id}}">Удалить</a></td>
+                    {% endif %}
             </h3>
         {% endfor %}
             Количество лекторов: {{ lecturers|get_count}}
     </p>
+        {% if request.user.is_authenticated and request.user.is_staff %}
     <a href="{% url 'create_lecturers' %}"><button class="btn btn-success" type="submit">Добавить лектора</button></a>
-</div>
+        {% endif %}
+    </div>
 </body>
 </html>
