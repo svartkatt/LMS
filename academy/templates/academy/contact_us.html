@@ -8,6 +8,9 @@
     <title>Contact us</title>
 </head>
 <body>
+{% if 'paused' in request.session %}
+    Вы недавно нам писали, мы свяжемся с Вами в ближайшее время.
+{% else %}
     <h1>Напишите нам:</h1>
     <a href="{% url 'contact_us' %}"></a>
     <form method="post">
@@ -17,6 +20,7 @@
         Ваше сообщение:{{ form.text }}<br>
         <button class="btn btn-success" type="submit">Отправить</button>
     </form>
-    <h1>Отправленные отзывы:</h1>
+{% endif %}
+
 </body>
 </html>
