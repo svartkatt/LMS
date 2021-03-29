@@ -24,12 +24,17 @@
         <p>
             {% for student in students %}
                 <h3>{{ student.first_name }} {{ student.last_name }}
-                <td><img class="avatar" src="{{ student.avatar.url }}"><a href="students/edit/{{student.id}}">Изменить</a> | <a href="students/delete/{{student.id}}">Удалить</a></td>
+                <td><img class="avatar" src="{{ student.avatar.url }}">
+                    {% if request.user.is_authenticated and request.user.is_staff %}
+                    <a href="students/edit/{{student.id}}">Изменить</a> | <a href="students/delete/{{student.id}}">Удалить</a></td>
+                    {% endif %}
                 </h3>
             {% endfor %}
             Количество студентов: {{ students|get_count}}
         </p>
+            {% if request.user.is_authenticated and request.user.is_staff %}
     <a href="{% url 'create_students' %}"><button class="btn btn-success" type="submit">Добавить студента</button></a>
+            {% endif %}
             </div>
         <div class="col-md-3">
             <div class="card flex-row mt-2 ps-2 pe-2 shadow-sm table-responsive">
@@ -42,3 +47,6 @@
     </div>
 </body>
 </html>
+
+{% if request.user.is_authenticated and request.uset.is_staff %}
+{% endif %}
