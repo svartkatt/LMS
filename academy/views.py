@@ -145,6 +145,9 @@ def contact_us(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
+            request.session.set_expiry(300)
+            request.session['paused'] = True
+
     form = ContactForm()
 
     data = {
