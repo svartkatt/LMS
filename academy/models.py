@@ -17,8 +17,15 @@ class Lecturer(models.Model):
 
 class Group(models.Model):
     course = models.CharField(max_length=30)
-    students = models.ManyToManyField(Student, null=True)
+    students = models.ManyToManyField(Student)
     teacher = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
+
+    def to_dict(self):
+        return {
+            'course': self.course,
+            'students': self.students,
+            'teacher': self.teacher,
+        }
 
 
 class Contact(models.Model):
