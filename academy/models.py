@@ -23,7 +23,6 @@ class Group(models.Model):
     def to_dict(self):
         return {
             'course': self.course,
-            'students': self.students,
             'teacher': self.teacher,
         }
 

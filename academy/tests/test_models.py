@@ -1,3 +1,5 @@
+import contextlib
+
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
@@ -8,7 +10,7 @@ class AcademyModelTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.text = 'some text'
+        cls.text = 'Some text'
         cls.mail = 'somemail@gmail.com'
         cls.student = Student.objects.create(
             first_name='some_name',
@@ -75,7 +77,9 @@ class AcademyModelTest(TestCase):
         with self.assertRaisesMessage(ValidationError, expected_message):
             group.full_clean()
 
+    @contextlib.contextmanager
     def test_to_dict_equals_to_short_representation(self):
         group = Group.objects.create(course=self.text, teacher=self.lecturer)
         group.students.add(self.student)
-        expected = {'course': self.text, 'students': self.student, 'teacher': self.lecturer}
+        expected = {'course': self.text, 'teacher': self.lecturer}
+        self.assertEquals(group.to_dict(), expected)
