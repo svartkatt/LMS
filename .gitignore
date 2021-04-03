@@ -1,0 +1,16 @@
+/venv
+/.idea
+/__pycache__
+/academy/__pycache__
+/academy/templatetags/__pycache__
+/academy/management/commands/__pycache__
+/academy/migrations/__pycache__/
+/academy/tests/__pycache__/
+/exchanger/__pycache__
+/exchanger/migrations/__pycache__/
+/LMS/__pycache__
+/logger/__pycache__
+/logger/migrations/__pycache__/
+/media
+/pip
+/py
