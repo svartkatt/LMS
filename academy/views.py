@@ -107,8 +107,8 @@ def create_groups(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
         if form.is_valid():
-            form.save()
             form.students.set()
+            form.save()
     form = GroupForm()
 
     data = {

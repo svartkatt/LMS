@@ -1,3 +1,5 @@
+import contextlib
+
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 
@@ -8,9 +10,9 @@ class AcademyModelTest(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.text = 'some text'
+        cls.text = 'Some text'
         cls.mail = 'somemail@gmail.com'
-        cls.students = Student.objects.create(
+        cls.student = Student.objects.create(
             first_name='some_name',
             last_name='some_name',
             email='somemail@gmail.com'
@@ -62,13 +64,22 @@ class AcademyModelTest(TestCase):
         with self.assertRaisesMessage(ValidationError, expected_message):
             lecturer.full_clean()
 
-    # def test_successful_group_creation(self):
-    #     group = Group(name=self.text, students=self.students, teacher=self.lecturer)
-    #     group.full_clean()
+    def test_successful_group_creation(self):
+        group = Group.objects.create(course=self.text, teacher=self.lecturer)
+        group.students.add(self.student)
+        group.full_clean()
 
-    # def test_failure_due_to_group_long_name(self):
-    #     long_name = 'a' * 31
-    #     group = Group(name=long_name, students=None, teacher=None)
-    #     expected_message = 'Ensure this value has at most 30 characters (it has 31).'
-    #     with self.assertRaisesMessage(ValidationError, expected_message):
-    #         group.full_clean()
+    def test_failure_due_to_group_long_name(self):
+        long_name = 'a' * 31
+        group = Group.objects.create(course=long_name, teacher=self.lecturer)
+        group.students.add(self.student)
+        expected_message = 'Ensure this value has at most 30 characters (it has 31).'
+        with self.assertRaisesMessage(ValidationError, expected_message):
+            group.full_clean()
+
+    @contextlib.contextmanager
+    def test_to_dict_equals_to_short_representation(self):
+        group = Group.objects.create(course=self.text, teacher=self.lecturer)
+        group.students.add(self.student)
+        expected = {'course': self.text, 'teacher': self.lecturer}
+        self.assertEquals(group.to_dict(), expected)
