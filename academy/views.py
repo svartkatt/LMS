@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -19,6 +20,7 @@ def students(request):
     return render(request, 'academy/students.html', context)
 
 
+@login_required
 def create_students(request):
     if request.method == 'POST':
         form = StudentForm(request.POST)
@@ -33,6 +35,7 @@ def create_students(request):
     return render(request, 'academy/create_students.html', data)
 
 
+@login_required
 @cache_page(60 * 10)
 def edit_students(request, id):
     student = get_object_or_404(Student, id=id)
@@ -47,6 +50,7 @@ def edit_students(request, id):
     return render(request, 'academy/edit_students.html', {'form': form})
 
 
+@login_required
 def delete_student(request, id):
     try:
         student = Student.objects.get(id=id)
@@ -61,6 +65,7 @@ def lecturers(request):
     return render(request, 'academy/lecturers.html', {'lecturers': lecturers})
 
 
+@login_required
 def create_lecturers(request):
     if request.method == 'POST':
         form = LecturerForm(request.POST)
@@ -76,6 +81,7 @@ def create_lecturers(request):
 
 
 @cache_page(60 * 10)
+@login_required
 def edit_lecturers(request, id):
     lecturer = get_object_or_404(Lecturer, id=id)
     if request.method == 'POST':
@@ -89,6 +95,7 @@ def edit_lecturers(request, id):
     return render(request, 'academy/edit_lecturers.html', {'form': form})
 
 
+@login_required
 def delete_lecturer(request, id):
     try:
         lecturer = Lecturer.objects.get(id=id)
@@ -103,6 +110,7 @@ def groups(request):
     return render(request, 'academy/groups.html', {'groups': groups})
 
 
+@login_required
 def create_groups(request):
     if request.method == 'POST':
         form = GroupForm(request.POST)
@@ -119,6 +127,7 @@ def create_groups(request):
 
 
 @cache_page(60 * 10)
+@login_required
 def edit_groups(request, id):
     group = get_object_or_404(Group, id=id)
     if request.method == 'POST':
@@ -132,6 +141,7 @@ def edit_groups(request, id):
     return render(request, 'academy/edit_groups.html', {'form': form})
 
 
+@login_required
 def delete_groups(request, id):
     try:
         group = Group.objects.get(id=id)
