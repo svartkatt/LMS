@@ -19,6 +19,13 @@ app.autodiscover_tasks()
 app.conf.beat_schedule = {
     'delete_logs': {
         'task': 'logger.tasks.delete_logs',
-        'schedule': crontab(hour=24)
+        'schedule': crontab(hour=0)
+    }
+}
+
+app.conf.beat_schedule = {
+    'get_exchange_rates': {
+        'task': 'exchanger.tasks.get_exchange_rates',
+        'schedule': crontab(minute='*/30')
     }
 }

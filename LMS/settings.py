@@ -27,6 +27,9 @@ EMAIL_SENDER = 'kagalanton@protonmail.com'
 
 CELERY_BROKER_URL = 'amqp://localhost'
 
+#EXCHANGE_RATES_SOURCE = 'https://api.privatbank.ua/p24api/exchange_rates?json&date=01.12.2014'
+EXCHANGE_RATES_SOURCE = 'https://api.monobank.ua/bank/currency'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -44,7 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'academy.apps.AcademyConfig',
     'silk',
-    'logger'
+    'logger',
+    'exchanger',
+    'bulk_update_or_create'
 ]
 
 MIDDLEWARE = [
@@ -128,3 +133,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'

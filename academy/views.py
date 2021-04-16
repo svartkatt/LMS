@@ -1,13 +1,21 @@
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 
+from exchanger.models import ExchangeRate
+from exchanger.tasks import get_exchange_rates
 from .models import Student, Lecturer, Group, Contact
 from .forms import StudentForm, LecturerForm, GroupForm, ContactForm
 
 
 def students(request):
     students = Student.objects.all()
-    return render(request, 'academy/students.html', {'students': students})
+    exchange_rates = ExchangeRate.objects.all()
+    context = {
+        k: v for ex_rate in exchange_rates
+        for k, v in ex_rate.to_dict().items()
+    }
+    context['students'] = students
+    return render(request, 'academy/students.html', context)
 
 
 def create_students(request):
