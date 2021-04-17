@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Создание лектора</title>
+</head>
+<body>
+    <h1>Добавьте лектора:</h1>
+    <a href="{% url 'create_lecturers' %}"></a>
+    <form method="post">
+        {% csrf_token %}
+        Имя:{{ form.first_name }}<br>
+        Фамилия:{{ form.last_name }}<br>
+        Email:{{ form.email }}<br>
+        <button class="btn btn-success" type="submit">Добавить лектора</button>
+    </form>
+    <a href="{% url 'lecturers' %}"><button class="btn btn-success" type="submit">Вернуться к списку лекторов</button></a>
+</body>
+</html>

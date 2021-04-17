@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать студента</title>
+</head>
+<body>
+ <h1>Редактировать студента</h1>
+    <form method="POST">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Сохранить изменения</button>
+    </form>
+<a href="{% url 'students' %}"><button class="btn btn-success" type="submit">Вернуться к списку студентов</button></a>
+</body>
+</html>
