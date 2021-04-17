@@ -1,6 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import CreateView, ListView
 
 from exchanger.models import ExchangeRate
 from .models import Student, Lecturer, Group
@@ -166,3 +167,4 @@ def contact_us(request):
         'form': form
     }
     return render(request, 'academy/contact_us.html', data)
+

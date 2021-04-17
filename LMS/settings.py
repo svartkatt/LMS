@@ -52,8 +52,34 @@ INSTALLED_APPS = [
     'logger',
     'exchanger',
     'bulk_update_or_create',
-    'users'
+    'users',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'django.contrib.sites'
+
 ]
+
+SITE_ID = 3
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend'
+]
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email'
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online'
+        }
+    }
+}
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -144,5 +170,6 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 LOGIN_REDIRECT_URL = '/students'
+LOGOUT_REDIRECT_URL = '/students'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
