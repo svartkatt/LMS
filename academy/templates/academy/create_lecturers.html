@@ -10,7 +10,7 @@
 <body>
     <h1>Добавьте лектора:</h1>
     <a href="{% url 'create_lecturers' %}"></a>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         Имя:{{ form.first_name }}<br>
         Фамилия:{{ form.last_name }}<br>
