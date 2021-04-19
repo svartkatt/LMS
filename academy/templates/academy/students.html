@@ -50,3 +50,7 @@
 
 {% if request.user.is_authenticated and request.uset.is_staff %}
 {% endif %}
+<br>
+{% if articles.paginator.num_pages != 1 %}
+    {% include "academy/pagination.html" with page=students current_tag=current_tag %}
+{% endif %}

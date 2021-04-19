@@ -37,4 +37,8 @@
         {% endif %}
     </div>
 </body>
+<br>
+{% if articles.paginator.num_pages != 1 %}
+    {% include "academy/pagination.html" with page=groups current_tag=current_tag %}
+{% endif %}
 </html>
