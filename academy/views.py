@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 
+from LMS.settings import ARTICLES_PER_PAGE
 from exchanger.models import ExchangeRate
 from .models import Student, Lecturer, Group
 from .forms import StudentForm, LecturerForm, GroupForm, ContactForm
@@ -15,11 +17,20 @@ from django.views.decorators.cache import cache_page
 def students(request):
     students = Student.objects.all()
     exchange_rates = ExchangeRate.objects.all()
+    paginator = Paginator(students, ARTICLES_PER_PAGE)
+    page = request.GET.get('page')
+    try:
+        students = paginator.page(page)
+    except PageNotAnInteger:
+        students = paginator.page(1)
+    except EmptyPage:
+        students = paginator.page(paginator.num_pages)
     context = {
         k: v for ex_rate in exchange_rates
         for k, v in ex_rate.to_dict().items()
     }
     context['students'] = students
+    context['page'] = page
     return render(request, 'academy/students.html', context)
 
 
@@ -43,7 +54,15 @@ class StudentsDeleteView(DeleteView):
 
 def lecturers(request):
     lecturers = Lecturer.objects.all()
-    return render(request, 'academy/lecturers.html', {'lecturers': lecturers})
+    paginator = Paginator(lecturers, ARTICLES_PER_PAGE)
+    page = request.GET.get('page')
+    try:
+        lecturers = paginator.page(page)
+    except PageNotAnInteger:
+        lecturers = paginator.page(1)
+    except EmptyPage:
+        lecturers = paginator.page(paginator.num_pages)
+    return render(request, 'academy/lecturers.html', {'lecturers': lecturers, 'page': page})
 
 
 class LecturersCreateView(LoginRequiredMixin, CreateView):
@@ -66,7 +85,15 @@ class LecturersDeleteView(DeleteView):
 
 def groups(request):
     groups = Group.objects.all()
-    return render(request, 'academy/groups.html', {'groups': groups})
+    paginator = Paginator(groups, ARTICLES_PER_PAGE)
+    page = request.GET.get('page')
+    try:
+        groups = paginator.page(page)
+    except PageNotAnInteger:
+        groups = paginator.page(1)
+    except EmptyPage:
+        groups = paginator.page(paginator.num_pages)
+    return render(request, 'academy/groups.html', {'groups': groups, 'page': page})
 
 
 class GroupsCreateView(LoginRequiredMixin, CreateView):
