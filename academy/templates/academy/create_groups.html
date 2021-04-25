@@ -10,7 +10,7 @@
 <body>
     <h1>Создайте группу:</h1>
     <a href="{% url 'create_groups' %}"></a>
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         Курс:{{ form.course }}<br>
         Студенты:{{ form.students }}<br>
