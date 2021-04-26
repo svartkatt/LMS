@@ -1,0 +1,8 @@
+{% block content %}
+    <h1>Удаление группу</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <p>Вы действительно хотите удалить группу {{ group.course }}?</p>
+        <input type="submit" value="Удалить" />
+    </form>
+{% endblock content %}

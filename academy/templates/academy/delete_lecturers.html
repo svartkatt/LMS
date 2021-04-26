@@ -1,0 +1,8 @@
+{% block content %}
+    <h1>Удаление лектора</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <p>Вы действительно хотите удалить лектора {{ lecturer.last_name }}?</p>
+        <input type="submit" value="Удалить" />
+    </form>
+{% endblock content %}

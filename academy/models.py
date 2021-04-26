@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Student(models.Model):
@@ -7,6 +8,9 @@ class Student(models.Model):
     email = models.EmailField()
     avatar = models.ImageField(upload_to='covers/', default='covers/default.png')
 
+    def get_absolute_url(self):
+        return reverse('students')
+
 
 class Lecturer(models.Model):
     first_name = models.CharField(max_length=30)
@@ -14,6 +18,8 @@ class Lecturer(models.Model):
     email = models.EmailField()
     avatar = models.ImageField(upload_to='covers/', default='covers/default.png')
 
+    def get_absolute_url(self):
+        return reverse('lecturers')
 
 class Group(models.Model):
     course = models.CharField(max_length=30)
@@ -25,6 +31,9 @@ class Group(models.Model):
             'course': self.course,
             'teacher': self.teacher,
         }
+
+    def get_absolute_url(self):
+        return reverse('groups')
 
 
 class Contact(models.Model):
