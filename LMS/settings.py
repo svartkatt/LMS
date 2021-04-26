@@ -57,8 +57,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    'django.contrib.sites'
-
+    'django.contrib.sites',
+    'rest_framework'
 ]
 
 SITE_ID = 3
@@ -175,3 +175,10 @@ LOGOUT_REDIRECT_URL = '/students'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 ARTICLES_PER_PAGE = 3
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}

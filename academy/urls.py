@@ -18,4 +18,10 @@ urlpatterns = [
     path('groups/edit/<int:pk>', GroupsEditView.as_view(), name='edit_groups'),
     path('groups/delete/<int:pk>', GroupsDeleteView.as_view(), name='delete_groups'),
     path('contact_us', views.contact_us, name='contact_us'),
+    path('api/v1/student', views.student),
+    path('api/v1/student/<int:id>', views.the_student),
+    path('api/v1/lecturer', views.lecturer),
+    path('api/v1/lecturer/<int:id>', views.the_lecturer),
+    path('api/v1/group', views.group),
+    path('api/v1/group/<int:id>', views.the_group)
 ]
