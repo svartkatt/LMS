@@ -1,5 +1,7 @@
+import jwt
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -7,11 +9,14 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from rest_framework.authentication import BasicAuthentication, SessionAuthentication
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
-from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_204_NO_CONTENT, HTTP_200_OK
+from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_204_NO_CONTENT, HTTP_200_OK, \
+    HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND, HTTP_409_CONFLICT
+from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+from rest_framework_jwt.serializers import jwt_payload_handler
 
-from LMS.settings import ARTICLES_PER_PAGE
+from LMS.settings import ARTICLES_PER_PAGE, SECRET_KEY
 from exchanger.models import ExchangeRate
 from .models import Student, Lecturer, Group
 from .forms import ContactForm
@@ -267,7 +272,7 @@ def group(request):
 
 
 @api_view(['GET', 'DELETE', 'PUT'])
-@authentication_classes([SessionAuthentication, BasicAuthentication])
+@authentication_classes([JSONWebTokenAuthentication])
 @permission_classes([IsAuthenticated])
 def the_group(request, id):
     try:
@@ -295,3 +300,32 @@ def the_group(request, id):
             the_group.teacher = teacher
         the_group.save()
         return Response(status=HTTP_200_OK)
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def authenticate_user(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
+    if not email or not password:
+        res = {'error': 'Please provide an email and a password'}
+        return Response(res, status=HTTP_409_CONFLICT)
+
+    try:
+        user = User.objects.get(email=email)
+    except User.DoesNotExist:
+        message = 'Cannot find user with specified email'
+        res = {'error': message}
+        return Response(res, status=HTTP_404_NOT_FOUND)
+    if not user.check_password(password):
+        message = "Can't authenticate with the given credentials or the account has " \
+                  "been deactivated"
+        res = {'error': message}
+        return Response(res, status=HTTP_403_FORBIDDEN)
+
+    payload = jwt_payload_handler(user)
+    token = jwt.encode(payload, SECRET_KEY)
+    user_details = {
+        'name': f'{user.first_name} {user.last_name}',
+        'token': token
+    }
+    return Response(user_details, status=HTTP_200_OK)
