@@ -1,9 +1,12 @@
-FROM python:3.9-buster
+FROM python:3.9-alpine
 
 WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+
+RUN apk update && apk add --no-cache gcc alpine-sdk python3-dev jpeg-dev zlib-dev musl-dev libffi-dev libressl-dev cargo postgresql-libs postgresql-dev
+
 
 COPY . .
 
